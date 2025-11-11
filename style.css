@@ -1,0 +1,312 @@
+/* ===== CSS VARIABLES & GLOBAL RESET ===== */
+:root {
+    /* [WARNA] Sesuaikan warna ini dengan brand SkyMortar (Ungu) */
+    --color-primary: #8A2BE2; /* Ungu Cerah (dari screenshot) */
+    --color-primary-dark: #6a1b9a; /* Ungu Lebih Gelap */
+    --color-dark-bg: #1e1e2f;     /* Background Gelap (Navy/Ungu Tua) */
+    --color-light-bg: #2a2a3f;    /* Background Card */
+    --color-text: #f0f0f5;         /* Teks Putih Gading */
+    --color-text-muted: #a0a0b5;   /* Teks Abu-abu */
+    --color-accent: #f9a825;       /* Kuning/Emas untuk Highlight (Kontras) */
+
+    --font-main: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-dark-bg);
+    color: var(--color-text);
+    line-height: 1.7;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: var(--color-light-bg);
+    padding: 30px 0;
+    text-align: center;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.logo {
+    max-height: 50px;
+    margin-bottom: 15px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: var(--color-text);
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+}
+
+.hero .highlight-pro {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* ===== GENERAL SECTION STYLING ===== */
+section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--color-light-bg);
+}
+
+section h2 {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+section p, section li {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 15px;
+}
+
+section ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+/* ===== HIGHLIGHT & ROI SECTION ===== */
+.highlight-section {
+    background-color: var(--color-primary-dark);
+}
+
+#roi h2 {
+    color: var(--color-accent);
+}
+
+#roi ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: center;
+}
+#roi li {
+    display: inline-block;
+    background: var(--color-light-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+#roi .conclusion {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--color-accent);
+    margin-top: 20px;
+}
+
+/* ===== DEMO VIDEO ===== */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 30px;
+    border: 3px solid var(--color-primary);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== SOLUTION GRID ===== */
+.solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.solution-card {
+    background: var(--color-light-bg);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--color-light-bg);
+    transition: all 0.3s ease;
+}
+
+.solution-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.solution-card h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+.solution-card ul {
+    list-style-type: '✓ ';
+    padding-left: 20px;
+}
+
+/* ===== COMPARISON TABLE ===== */
+.table-container {
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-light-bg);
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border: 1px solid var(--color-dark-bg);
+}
+
+th {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text);
+    font-size: 1.1rem;
+}
+
+td {
+    color: var(--color-text-muted);
+}
+
+td:nth-child(3) {
+    background-color: #3a3a5a; /* Highlight kolom Anda */
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.total-row td {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.total-row td:nth-child(3) {
+    color: var(--color-accent);
+}
+
+.conclusion-row {
+    font-style: italic;
+}
+.conclusion-row td:nth-child(3) {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+/* ===== ODOO VISION ===== */
+.odoo-modules {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.odoo-modules li {
+    background: var(--color-light-bg);
+    color: var(--color-primary);
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+/* ===== CTA (Call to Action) ===== */
+#cta {
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-dark-bg);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.cta-button.secondary {
+    background: none;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 40px 0;
+    text-align: center;
+    background: var(--color-dark-bg);
+    border-top: 1px solid var(--color-light-bg);
+    color: var(--color-text-muted);
+}
+
+footer strong {
+    color: var(--color-text);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .solution-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero h2 {
+        font-size: 2rem;
+    }
+}
