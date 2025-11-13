@@ -4,19 +4,982 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proposal Solusi Digital untuk PT Sky Mortar</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style.css">
+    <style>
+/* ===== CSS VARIABLES ===== */
+:root {
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', sans-serif;
+    
+    /* Light Mode Palette */
+    --color-primary: #2563eb;
+    --color-primary-light: #3b82f6;
+    --color-primary-dark: #1e40af;
+    --color-accent: #f59e0b;
+    --color-accent-light: #fbbf24;
+    
+    --color-bg-main: #ffffff;
+    --color-bg-secondary: #f8fafc;
+    --color-bg-card: #ffffff;
+    
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94a3b8;
+    
+    --color-border: #e2e8f0;
+    --color-border-light: #f1f5f9;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+}
+
+body.dark-mode {
+    --color-bg-main: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-bg-card: #1e293b;
+    
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #64748b;
+    
+    --color-border: #334155;
+    --color-border-light: #1e293b;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg-main);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ===== THEME TOGGLE ===== */
+#theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+}
+
+#theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    padding: 48px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+header .container {
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+}
+
+header p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+header strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    padding: 100px 0 80px;
+    text-align: center;
+    background: var(--color-bg-secondary);
+    position: relative;
+}
+
+.hero h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--color-text-primary);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    font-weight: 800;
+}
+
+.hero h2 br {
+    display: block;
+}
+
+.hero .subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-top: 24px;
+    font-weight: 400;
+}
+
+.hero .highlight-pro {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+    color: var(--color-text-primary);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 20px;
+    border-radius: 24px;
+    margin-top: 16px;
+}
+
+/* ===== SECTION BASE ===== */
+section {
+    padding: 80px 0;
+    background-color: var(--color-bg-main);
+    transition: background-color 0.3s ease;
+}
+
+section:nth-child(even) {
+    background-color: var(--color-bg-secondary);
+}
+
+section h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+section > .container > p:first-of-type {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 48px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== CONTENT CARD ===== */
+.content-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 32px 0;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.content-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+}
+
+.content-card p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.content-card strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ===== PROBLEM SECTION ===== */
+#problem .content-card {
+    border-left: 4px solid #ef4444;
+}
+
+#problem h2 {
+    color: #ef4444;
+}
+
+/* ===== ROI SECTION ===== */
+#roi {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+#roi::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+#roi .container {
+    position: relative;
+    z-index: 1;
+}
+
+#roi h2 {
+    color: #ffffff;
+}
+
+#roi > .container > p {
+    color: rgba(255,255,255,0.95);
+}
+
+.roi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.roi-item {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+}
+
+.roi-item strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-accent-light);
+    margin-bottom: 8px;
+}
+
+.roi-item p {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9375rem;
+}
+
+.conclusion {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--color-accent-light);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.conclusion strong {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-accent-light);
+    line-height: 1.5;
+}
+
+/* ===== DEMO VIDEO ===== */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-top: 48px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xl);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== SOLUTION GRID ===== */
+.solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.solution-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.solution-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-light));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.solution-card:hover::before {
+    transform: scaleY(1);
+}
+
+.solution-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-primary-light);
+}
+
+.solution-card h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+}
+
+.solution-card > p {
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+    font-size: 1rem;
+}
+
+.solution-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.solution-card li {
+    padding: 12px 0;
+    padding-left: 32px;
+    position: relative;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.solution-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.solution-card li strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+/* ===== COMPARISON TABLE ===== */
+.table-wrapper {
+    margin-top: 48px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-bg-card);
+}
+
+thead {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+}
+
+th {
+    padding: 20px 24px;
+    text-align: left;
+    color: #ffffff;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+}
+
+td {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--color-border-light);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: var(--color-bg-secondary);
+}
+
+td:nth-child(3) {
+    background: linear-gradient(to right, rgba(37, 99, 235, 0.05), transparent);
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+body.dark-mode td:nth-child(3) {
+    background: linear-gradient(to right, rgba(37, 99, 235, 0.15), transparent);
+}
+
+.total-row td {
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    background: var(--color-bg-secondary);
+}
+
+.total-row td:nth-child(3) {
+    color: var(--color-primary);
+}
+
+.conclusion-row td {
+    font-style: italic;
+    font-size: 0.9375rem;
+    padding-top: 20px;
+}
+
+.conclusion-row td:nth-child(3) {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* ===== VISION SECTION ===== */
+.odoo-modules {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+    justify-content: center;
+}
+
+.odoo-modules li {
+    background: var(--color-bg-card);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 12px 24px;
+    border-radius: 24px;
+    border: 2px solid var(--color-border);
+    transition: all 0.3s ease;
+}
+
+.odoo-modules li:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+/* ===== CTA SECTION ===== */
+#cta {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+#cta .container {
+    position: relative;
+    z-index: 1;
+}
+
+#cta h2 {
+    color: #ffffff;
+}
+
+#cta p {
+    color: rgba(255,255,255,0.95);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: var(--color-primary-dark);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    padding: 16px 40px;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #ffffff;
+    box-shadow: var(--shadow-lg);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.cta-button.secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.5);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: #ffffff;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 60px 0;
+    text-align: center;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+}
+
+footer p {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+footer strong {
+    color: var(--color-text-primary);
+    font-size: 1.125rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    #theme-toggle {
+        display: none !important;
+    }
+    
+    /* Prevent page breaks inside critical elements */
+    section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    /* Allow page break before certain sections for better distribution */
+    #comparison {
+        page-break-before: auto;
+    }
+    
+    h2, h3, h4 {
+        page-break-after: avoid;
+        break-after: avoid;
+        margin-top: 0;
+    }
+    
+    p, li {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        orphans: 2;
+        widows: 2;
+    }
+    
+    .content-card,
+    .solution-card,
+    .roi-item,
+    .conclusion {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .roi-grid,
+    .solution-grid {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .odoo-modules {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    table {
+        page-break-inside: auto;
+        break-inside: auto;
+    }
+    
+    thead {
+        display: table-header-group;
+    }
+    
+    tbody tr {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    .video-container {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        border: 2px solid #ddd !important;
+        background: #f5f5f5 !important;
+        min-height: 300px;
+        margin-bottom: 40px !important;
+    }
+    
+    .video-container::after {
+        content: '[Video Demo Tersedia di Versi Digital]';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #666;
+        text-align: center;
+    }
+    
+    /* Optimize backgrounds for print */
+    #roi,
+    #cta {
+        background: #f5f5f5 !important;
+        color: black !important;
+        page-break-inside: avoid;
+    }
+    
+    #roi::before,
+    #cta::before {
+        display: none !important;
+    }
+    
+    #roi h2,
+    #roi p,
+    #roi strong,
+    #roi li,
+    #cta h2,
+    #cta p {
+        color: black !important;
+    }
+    
+    .roi-item {
+        background: white !important;
+        border: 2px solid #ddd !important;
+    }
+    
+    .roi-item strong {
+        color: #2563eb !important;
+    }
+    
+    .conclusion {
+        background: white !important;
+        border: 2px solid #f59e0b !important;
+        padding: 24px !important;
+        margin-top: 30px !important;
+    }
+    
+    .conclusion strong {
+        color: #f59e0b !important;
+    }
+    
+    .cta-button {
+        border: 2px solid black !important;
+        color: black !important;
+        background: white !important;
+    }
+    
+    /* Reduce excessive spacing for print */
+    section {
+        padding: 30px 0 !important;
+    }
+    
+    .hero {
+        padding: 40px 0 30px !important;
+    }
+    
+    section h2 {
+        margin-bottom: 20px !important;
+        font-size: 2rem !important;
+    }
+    
+    section > .container > p:first-of-type {
+        margin-bottom: 30px !important;
+    }
+    
+    .solution-grid {
+        gap: 20px !important;
+        margin-top: 30px !important;
+    }
+    
+    .solution-card {
+        padding: 24px !important;
+    }
+    
+    .solution-card h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .solution-card > p {
+        margin-bottom: 16px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .solution-card li {
+        padding: 8px 0 !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .table-wrapper {
+        margin-top: 30px !important;
+    }
+    
+    th, td {
+        padding: 12px 16px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    #vision .content-card {
+        margin-top: 20px !important;
+        padding: 24px !important;
+    }
+    
+    .odoo-modules {
+        margin-top: 20px !important;
+        gap: 8px !important;
+    }
+    
+    .odoo-modules li {
+        padding: 8px 16px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .cta-buttons {
+        margin-top: 30px !important;
+    }
+    
+    /* Ensure proper margins */
+    @page {
+        margin: 1.8cm;
+        size: A4;
+    }
+    
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    /* Better spacing between cards */
+    .content-card {
+        padding: 24px !important;
+    }
+    
+    .content-card p {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 12px !important;
+    }
+    
+    /* Optimize header */
+    header {
+        padding: 30px 0 !important;
+    }
+    
+    header h1 {
+        font-size: 1.5rem !important;
+        margin-bottom: 6px !important;
+    }
+    
+    header p {
+        font-size: 1rem !important;
+    }
+    
+    /* Optimize hero */
+    .hero h2 {
+        font-size: 2.2rem !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .hero .subtitle {
+        font-size: 1rem !important;
+        margin-top: 16px !important;
+    }
+    
+    .hero .highlight-pro {
+        margin-top: 12px !important;
+        font-size: 0.8rem !important;
+        padding: 6px 16px !important;
+    }
+    
+    /* Footer optimization */
+    footer {
+        padding: 30px 0 !important;
+    }
+    
+    footer p {
+        font-size: 0.9rem !important;
+        margin-bottom: 6px !important;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    section {
+        padding: 60px 0;
+    }
+    
+    .hero {
+        padding: 80px 0 60px;
+    }
+    
+    .solution-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .roi-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    table {
+        font-size: 0.875rem;
+    }
+    
+    th, td {
+        padding: 16px 12px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .cta-button {
+        width: 100%;
+    }
+}
+    </style>
 </head>
 <body>
 
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+
     <header>
         <div class="container">
-            <h1>Proposal Solusi & Automasi</h1>
+            <h1>Proposal Solusi Digital & Automasi</h1>
             <p>Disiapkan untuk <strong>PT Sky Mortar Indonesia</strong></p>
         </div>
     </header>
@@ -24,41 +987,59 @@
     <main>
         <section class="hero">
             <div class="container">
-                <h2>Lebih dari Sekadar Website. <br>Ini adalah Proposal Efisiensi Operasional.</h2>
+                <h2>Lebih dari Sekadar Website.<br>Ini adalah Strategi Efisiensi Operasional.</h2>
                 <p class="subtitle">
-                    Disusun oleh: Naufal Nabila <br>
-                    <span class="highlight-pro">Senior Full-Stack & Automation Architect</span>
+                    Disusun oleh: <strong>Naufal Nabila</strong>
                 </p>
+                <span class="highlight-pro">Automation Architect</span>
             </div>
         </section>
 
         <section id="problem">
             <div class="container">
                 <h2>Audit Awal: Memperbaiki Saluran Pendapatan yang Bocor</h2>
-                <p>Saat meninjau aset digital Anda, saya menemukan masalah kritis: tombol <strong>"Contact Us" WhatsApp di skymortar.com tidak berfungsi.</strong></p>
-                <p>Ini bukan sekadar 'bug'. Ini adalah kebocoran leads. Setiap hari, potensi kontraktor dan distributor gagal menghubungi Anda. Proposal ini dimulai dengan memperbaiki fondasi Anda untuk memastikan tidak ada lagi pendapatan yang hilang.</p>
+                <p>Analisis mendalam terhadap infrastruktur digital PT Sky Mortar mengungkap kelemahan kritis yang berdampak langsung pada revenue stream.</p>
+                
+                <div class="content-card">
+                    <p>Saat meninjau aset digital Anda, saya menemukan masalah kritis: tombol <strong>"Contact Us" WhatsApp di skymortar.com tidak berfungsi.</strong></p>
+                    <p>Ini bukan sekadar 'bug teknis'. Ini adalah kebocoran leads yang sistematis. Setiap hari, potensi kontraktor dan distributor gagal menghubungi Anda karena pintu digital Anda tertutup.</p>
+                    <p>Proposal ini dimulai dengan memperbaiki fondasi Anda untuk memastikan tidak ada lagi pendapatan yang hilang begitu saja.</p>
+                </div>
             </div>
         </section>
 
-        <section id="roi" class="highlight-section">
+        <section id="roi">
             <div class="container">
-                <h2>Analisis Biaya Tersembunyi: Rp 58 Juta/Tahun</h2>
-                <p>Untuk melayani pelanggan, Anda membutuhkan minimal 1 Admin/CS. Mari kita hitung biayanya:</p>
-                <ul>
-                    <li>Gaji UMK Sidoarjo 2025: <strong>Rp 4.870.511/bulan</strong></li>
-                    <li>Biaya Tahunan: <strong>Rp 58.446.132/tahun</strong></li>
-                </ul>
-                <p>Biaya <strong>~Rp 58,4 Juta</strong> ini belum termasuk THR, lembur, BPJS, dan peralatan. Staf ini juga hanya bekerja 8-to-5, membuat leads malam & akhir pekan menjadi basi.</p>
-                <p class="conclusion">
-                    <strong>Solusi Automasi saya dirancang untuk menggantikan 100% pekerjaan ini, bekerja 24/7, dan menghemat Rp 58,4 Juta+ setiap tahun.</strong>
-                </p>
+                <h2>Analisis Biaya Tersembunyi</h2>
+                <p>Untuk melayani pelanggan dengan standar profesional, Anda membutuhkan minimal 1 Admin/CS full-time. Mari kita hitung biaya riilnya:</p>
+                
+                <div class="roi-grid">
+                    <div class="roi-item">
+                        <strong>Rp 4.870.511</strong>
+                        <p>Gaji UMK Sidoarjo 2025 per bulan</p>
+                    </div>
+                    <div class="roi-item">
+                        <strong>Rp 58.446.132</strong>
+                        <p>Total biaya gaji tahunan</p>
+                    </div>
+                    <div class="roi-item">
+                        <strong>0 jam</strong>
+                        <p>Jam operasional di luar jam kantor</p>
+                    </div>
+                </div>
+                
+                <div class="conclusion">
+                    <strong>Biaya ~Rp 58,4 Juta ini belum termasuk THR, lembur, BPJS, dan peralatan. Staff ini juga hanya bekerja 8-to-5, membuat leads malam & akhir pekan menjadi basi.</strong>
+                    <br><br>
+                    <strong>Solusi Automasi saya dirancang untuk menggantikan 100% pekerjaan ini, bekerja 24/7/365, dan menghemat Rp 58,4 Juta+ setiap tahun.</strong>
+                </div>
             </div>
         </section>
 
         <section id="demo">
             <div class="container">
-                <h2>[DEMO] Jangan Percaya Kata Saya, Lihat Buktinya (2 Menit)</h2>
-                <p>Saya telah membuat prototipe sistem "Automasi Lead Capture Anti-Bocor" menggunakan n8n. Lihat bagaimana data dari form website secara instan masuk ke WhatsApp Sales dan Database.</p>
+                <h2>Bukti Konsep: Sistem Automasi Lead Capture</h2>
+                <p>Saya telah membuat prototipe sistem "Automasi Lead Capture Anti-Bocor" menggunakan n8n. Tonton bagaimana data dari form website secara instan masuk ke WhatsApp Sales dan Database dalam waktu nyata.</p>
                 
                 <div class="video-container">
                     <iframe 
@@ -75,25 +1056,27 @@
         <section id="solution">
             <div class="container">
                 <h2>Solusi yang Diusulkan</h2>
+                <p>Pendekatan dua fase yang mengintegrasikan kualitas premium dengan ROI terukur.</p>
+                
                 <div class="solution-grid">
                     <div class="solution-card">
                         <h3>Fase 1: Fondasi Website Premium</h3>
-                        <p>Membangun aset digital Anda dengan kualitas tertinggi, bukan 'script murah'.</p>
+                        <p>Membangun aset digital Anda dengan kualitas enterprise-grade, bukan 'template murah'.</p>
                         <ul>
-                            <li>Konversi Figma <strong>Pixel-Perfect</strong></li>
-                            <li>Backend Laravel Kustom (Aman & Cepat)</li>
-                            <li>Logika Kalkulator setara <strong>Modul ERP</strong> (Akurat)</li>
-                            <li>CMS Kustom (User-friendly)</li>
+                            <li>Konversi Figma <strong>Pixel-Perfect</strong> dengan perhatian detail maksimal</li>
+                            <li>Backend Laravel Kustom yang aman, cepat, dan scalable</li>
+                            <li>Logika Kalkulator setara <strong>Modul ERP</strong> dengan akurasi tinggi</li>
+                            <li>CMS Kustom yang intuitif dan user-friendly</li>
                         </ul>
                     </div>
                     <div class="solution-card">
-                        <h3>Fase 2: Mesin Automasi (ROI)</h3>
-                        <p>Membuat website Anda bekerja 24/7 untuk Anda.</p>
+                        <h3>Fase 2: Mesin Automasi (ROI Generator)</h3>
+                        <p>Membuat website Anda bekerja 24/7 untuk menghasilkan dan merawat leads.</p>
                         <ul>
-                            <li><strong>Automasi Lead Capture (n8n)</strong> (Demo di atas)</li>
-                            <li><strong>AI Agent (Chatbot)</strong> untuk CS 24/7</li>
-                            <li>Menghemat <strong>~Rp 58,4 Juta/tahun</strong></li>
-                            <li>Kesiapan Integrasi Data ke Odoo</li>
+                            <li><strong>Automasi Lead Capture (n8n)</strong> seperti yang Anda lihat di demo</li>
+                            <li><strong>AI Agent (Chatbot)</strong> untuk customer service 24/7</li>
+                            <li>Menghemat <strong>~Rp 58,4 Juta per tahun</strong> biaya operasional</li>
+                            <li>Kesiapan penuh untuk integrasi data ke Odoo ERP</li>
                         </ul>
                     </div>
                 </div>
@@ -102,23 +1085,23 @@
 
         <section id="comparison">
             <div class="container">
-                <h2>Perbandingan Investasi (Tahun Pertama)</h2>
-                <p>Berikut adalah perbandingan jujur antara "Tawaran Murah" dan "Solusi Investasi" saya.</p>
+                <h2>Analisis Komparatif Investasi</h2>
+                <p>Perbandingan transparan antara pendekatan "hemat biaya" dan "investasi strategis" dalam konteks tahun pertama operasional.</p>
                 
-                <div class="table-container">
+                <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>Item</th>
-                                <th>Penawaran Murah (Contoh: Rp 5,4jt)</th>
-                                <th>Solusi Saya (Rp 30jt)</th>
+                                <th>Komponen</th>
+                                <th>Penawaran Standar (Rp 5,4jt)</th>
+                                <th>Solusi Premium Kami (Rp 30jt)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Biaya Proyek</td>
                                 <td>Rp 5.450.000 (Biaya Hangus)</td>
-                                <td><strong>Rp 30.000.000 (Investasi)</strong></td>
+                                <td><strong>Rp 30.000.000 (Investasi Strategis)</strong></td>
                             </tr>
                             <tr>
                                 <td>Biaya Staf CS (Wajib)</td>
@@ -126,14 +1109,24 @@
                                 <td><strong>Rp 0</strong> (Digantikan Automasi)</td>
                             </tr>
                             <tr>
-                                <td>Kualitas Kode</td>
-                                <td>Risiko Tinggi (Pasti ada 'bug' & 'lemot')</td>
-                                <td><strong>Teruji (9+ thn Pengalaman)</strong></td>
+                                <td>Kualitas Kode & Arsitektur</td>
+                                <td>Risiko Tinggi (bug, lemot, tidak scalable)</td>
+                                <td><strong>Enterprise-Grade (9+ tahun pengalaman)</strong></td>
                             </tr>
                             <tr>
-                                <td>Kesiapan ERP (Odoo)</td>
-                                <td>Tidak Ada (Harus Buat Ulang)</td>
-                                <td><strong>Siap Terintegrasi</strong></td>
+                                <td>Kesiapan Integrasi ERP (Odoo)</td>
+                                <td>Tidak Ada (Harus rebuild dari nol)</td>
+                                <td><strong>100% Siap Terintegrasi</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Automasi & AI Agent</td>
+                                <td>Tidak Termasuk</td>
+                                <td><strong>Termasuk & Teruji</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Jam Operasional</td>
+                                <td>8 jam (jam kerja saja)</td>
+                                <td><strong>24/7/365</strong></td>
                             </tr>
                             <tr class="total-row">
                                 <td>Total Biaya Tahun Pertama</td>
@@ -142,8 +1135,8 @@
                             </tr>
                             <tr class="conclusion-row">
                                 <td>Kesimpulan</td>
-                                <td>Lebih mahal, kualitas rendah, leads bocor.</td>
-                                <td><strong>Lebih hemat 53%,</strong> kualitas premium, 24/7.</td>
+                                <td>Lebih mahal, kualitas rendah, leads tetap bocor</td>
+                                <td><strong>Hemat 53%, kualitas premium, revenue protected 24/7</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -153,29 +1146,38 @@
 
         <section id="vision">
             <div class="container">
-                <h2>Visi Jangka Panjang: Kesiapan Integrasi Odoo</h2>
-                <p>Sebagai *developer* Odoo bersertifikat (Peraih *Best Developer Award*), saya membangun ini bukan sebagai *website*, tapi sebagai **gerbang data** untuk ERP Anda.</p>
-                <p>Data dari website ini (Leads, Produk, Kalkulator) akan 100% siap untuk diintegrasikan dengan modul Odoo krusial seperti:</p>
+                <h2>Visi Jangka Panjang: Kesiapan Integrasi Odoo ERP</h2>
+                <p>Sebagai developer Odoo bersertifikat dan peraih <strong>Best Developer Award</strong>, saya membangun ini bukan sebagai 'website biasa', tetapi sebagai <strong>gerbang data strategis</strong> untuk sistem ERP perusahaan Anda.</p>
+                
+                <div class="content-card">
+                    <p>Setiap baris kode, setiap struktur database, dan setiap API endpoint dirancang dengan standar ERP dalam pikiran. Ketika PT Sky Mortar siap untuk go-live dengan Odoo, sistem ini akan seamlessly terintegrasi dengan modul-modul krusial:</p>
+                </div>
+                
                 <ul class="odoo-modules">
                     <li>Manufacturing (MRP)</li>
-                    <li>Inventory</li>
+                    <li>Inventory Management</li>
                     <li>Quality Control</li>
                     <li>Sales & CRM</li>
-                    <li>Accounting</li>
+                    <li>Accounting & Finance</li>
+                    <li>Purchasing</li>
                 </ul>
-                <p>Anda tidak perlu membayar dua kali untuk membangun ulang saat perusahaan Anda siap untuk *go-live* ERP.</p>
+                
+                <div class="content-card" style="margin-top: 32px;">
+                    <p><strong>Benefit Strategis:</strong> Anda tidak perlu membayar dua kali untuk membangun ulang atau migrasi data saat perusahaan Anda siap scale up ke ERP penuh. Investasi hari ini adalah fondasi untuk pertumbuhan besok.</p>
+                </div>
             </div>
         </section>
 
-        <section id="cta" class="highlight-section">
+        <section id="cta">
             <div class="container">
                 <h2>Langkah Selanjutnya</h2>
-                <p>Anda tidak hanya membeli website. Anda berinvestasi untuk menghemat Rp 58,4 Juta/tahun sambil mendapatkan fondasi ERP yang solid.</p>
-                <p>Saya siap mempresentasikan ini dan menjawab semua pertanyaan Anda.</p>
+                <p>Anda tidak hanya membeli website. Anda berinvestasi untuk menghemat Rp 58,4 Juta per tahun sambil membangun fondasi digital yang solid untuk pertumbuhan jangka panjang.</p>
+                <p>Saya siap mempresentasikan solusi ini secara detail dan menjawab semua pertanyaan teknis maupun bisnis Anda.</p>
                 
-                <a href="#" class="cta-button">Jadwalkan Presentasi 30 Menit</a>
-                
-                <a href="#" class="cta-button secondary">Download Versi PDF</a>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button">Jadwalkan Presentasi 30 Menit</a>
+                    <a href="#" class="cta-button secondary" id="download-pdf">Download Versi PDF</a>
+                </div>
             </div>
         </section>
     </main>
@@ -183,13 +1185,77 @@
     <footer>
         <div class="container">
             <p>Disiapkan dengan keahlian dan dedikasi oleh:</p>
-            <p><strong>[Nama Anda]</strong><br>
-            Senior Full-Stack & Automation Architect<br>
-            [Email Anda] | [Nomor Telepon Anda]</p>
+            <p><strong>Naufal Nabila</strong><br>
+            Automation Architect & Odoo Specialist<br>
+            naufalnabila.my.id | 082328591004</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        applyTheme(savedTheme || 'light');
+
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            applyTheme(isDarkMode ? 'light' : 'dark');
+        });
+
+        // PDF Download Function
+        const downloadPdfBtn = document.getElementById('download-pdf');
+        
+        downloadPdfBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Sembunyikan tombol theme toggle sementara
+            themeToggle.style.display = 'none';
+            
+            // Simpan tema saat ini
+            const currentTheme = body.classList.contains('dark-mode');
+            
+            // Switch ke light mode untuk PDF (lebih printer-friendly)
+            if (currentTheme) {
+                body.classList.remove('dark-mode');
+            }
+            
+            // Ubah title untuk nama file PDF
+            const originalTitle = document.title;
+            document.title = 'Proposal-PT-Sky-Mortar-Naufal-Nabila';
+            
+            // Trigger print dialog (Save as PDF)
+            setTimeout(() => {
+                window.print();
+                
+                // Restore setelah print dialog
+                setTimeout(() => {
+                    document.title = originalTitle;
+                    themeToggle.style.display = 'flex';
+                    
+                    // Kembalikan tema semula
+                    if (currentTheme) {
+                        body.classList.add('dark-mode');
+                    }
+                }, 500);
+            }, 100);
+        });
+
+        console.log("Proposal Premium untuk PT Sky Mortar telah dimuat dengan sukses.");
+    </script>
 
 </body>
 </html>
